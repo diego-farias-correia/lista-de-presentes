@@ -1,0 +1,137 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: url("images/igreja.png") no-repeat center/cover;
+    height: 100vh;
+}
+
+/* SETA */
+.arrow {
+    width: 30px;
+    height: 30px;
+    border-left: 4px solid white;
+    border-bottom: 4px solid white;
+    transform: rotate(-45deg);
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+/* INFO */
+.info-box {
+    text-align: center;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* CONTAINER */
+.container {
+    margin: auto;
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    overflow-y: scroll;
+    height: 70vh;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+/* ITEM */
+.item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.item.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.item span {
+    flex: 1;
+    text-align: center;
+    color: black;
+}
+
+/* BOTÕES OCULTOS */
+.actions {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.4s ease;
+}
+
+.actions.show {
+    max-height: 100px;
+    margin-top: 10px;
+}
+
+button {
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-veja {
+    background: white;
+    color: black;
+}
+
+.btn-dar {
+    background: #4CAF50;
+    color: black;
+}
+
+/* POPUP (inicia escondido) */
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+
+    display: none; /* ← começa invisível */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Classe que ATIVA o popup */
+.popup.show {
+    display: flex;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+#listaPresentes {
+    list-style: none;     /* remove bolinha */
+    margin: 0;
+    padding: 0;           /* remove recuo lateral */
+    width: 100%;
+}

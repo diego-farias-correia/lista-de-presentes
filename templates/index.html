@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Presentes</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- SETA -->
+    <div id="toggleInfo" class="arrow"></div>
+
+    <!-- POPUP INFO -->
+    <div id="infoBox" class="info-box hidden">
+        <p>01/05/2026 - 09:00 h</p>
+        <p>Paróquia São José - José Américo</p>
+    </div>
+
+    <!-- LISTA -->
+    <div class="container">
+        <ul id="listaPresentes"></ul>
+    </div>
+
+    <!-- POPUP FORM -->
+    <div id="formPopup" class="popup">
+        <div class="popup-content">
+            <h3>Confirmar Presente</h3>
+            <input type="text" id="nomeConvidado" placeholder="Nome..." />
+            <button onclick="enviarPresente()">Confirmar</button>
+            <button onclick="fecharPopup()">Cancelar</button>
+        </div>
+    </div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
