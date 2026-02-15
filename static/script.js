@@ -20,7 +20,7 @@ function montarLista(lista) {
         if (presente.status === 1) li.classList.add("disabled");
 
         li.innerHTML = `
-            <img src="${presente.image}">
+            <img src="/static/${presente.image}">
             <span>${presente.item}</span>
         `;
 

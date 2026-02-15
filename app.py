@@ -1,10 +1,18 @@
 from flask import Flask, render_template, request, jsonify
 import sqlite3
+import os
+
 
 app = Flask(__name__)
 
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, "presente.db")
+
+
+
 def get_db():
-    conn = sqlite3.connect("presente.db")
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -43,4 +51,4 @@ def presentear():
     return jsonify({"ok": True})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
