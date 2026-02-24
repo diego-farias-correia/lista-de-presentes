@@ -35,7 +35,7 @@ function montarLista(lista) {
         li.appendChild(actions);
         ul.appendChild(li);
 
-        if (presente.status === 0) {
+        if (presente.status === 0 || presente.item === "Pix") {
             li.addEventListener("click", () => {
                 actions.classList.toggle("show");
             });
