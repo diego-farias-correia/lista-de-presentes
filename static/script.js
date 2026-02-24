@@ -17,7 +17,7 @@ function montarLista(lista) {
         const li = document.createElement("li");
         li.className = "item";
 
-        if (presente.status === 1) li.classList.add("disabled");
+        if (presente.status === 1 && presente.item !== "Pix") li.classList.add("disabled");
 
         li.innerHTML = `
             <img src="/static/${presente.image}">
