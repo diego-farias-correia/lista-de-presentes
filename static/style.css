@@ -18,9 +18,19 @@ body {
 
 /* INFO */
 .info-box {
+    margin: auto;
+    width: 90%;
+    max-width: 500px;
+    padding: 10px;
+    border-radius: 20px;
+
     text-align: center;
-    color: white;
+    color: black;
     margin-bottom: 10px;
+
+    background: rgba(179, 206, 229, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .hidden {
@@ -35,7 +45,7 @@ body {
     padding: 20px;
     border-radius: 20px;
 
-    background: rgba(255,255,255,0.2);
+    background: rgba(179,206,229,0.3);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 
