@@ -17,7 +17,7 @@ function montarLista(lista) {
         const li = document.createElement("li");
         li.className = "item";
 
-        if (presente.status === 1 && presente.item !== "Pix") li.classList.add("disabled");
+        if (presente.status === 1) li.classList.add("disabled");
 
         li.innerHTML = `
             <img src="/static/${presente.image}">
@@ -35,7 +35,7 @@ function montarLista(lista) {
         li.appendChild(actions);
         ul.appendChild(li);
 
-        if (presente.status === 0 || presente.item === "Pix") {
+        if (presente.status === 0) {
             li.addEventListener("click", () => {
                 actions.classList.toggle("show");
             });
