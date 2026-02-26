@@ -50,5 +50,18 @@ def presentear():
 
     return jsonify({"ok": True})
 
+@app.route("/admin")
+def admin():
+    conn = get_db()
+    cursor = conn.execute("""
+        SELECT item, convidado 
+        FROM lista_presentes
+        WHERE convidado IS NOT NULL
+    """)
+    dados = cursor.fetchall()
+    conn.close()
+
+    return jsonify([dict(row) for row in dados])
+
 if __name__ == "__main__":
     app.run()
