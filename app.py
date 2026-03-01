@@ -1,35 +1,35 @@
 from flask import Flask, render_template, request, jsonify
-import sqlite3
+import psycopg2
+import psycopg2.extras
 import os
-
 
 app = Flask(__name__)
 
-import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "presente.db")
-
-
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 def get_db():
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
+    conn = psycopg2.connect(DATABASE_URL)
     return conn
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
-# API LISTAR
+# LISTAR PRESENTES
 @app.route("/api/presentes")
 def listar_presentes():
     conn = get_db()
-    presentes = conn.execute("SELECT * FROM lista_presentes").fetchall()
+    cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+    cursor.execute("SELECT * FROM lista_presentes ORDER BY id;")
+    presentes = cursor.fetchall()
+
+    cursor.close()
     conn.close()
 
-    return jsonify([dict(p) for p in presentes])
+    return jsonify(presentes)
 
-# API PRESENTEAR
+# DAR PRESENTE
 @app.route("/api/presentear", methods=["POST"])
 def presentear():
     data = request.get_json()
@@ -37,31 +37,40 @@ def presentear():
     id_presente = data["id"]
 
     conn = get_db()
+    cursor = conn.cursor()
 
-    # PROTEÇÃO SQL INJECTION (query parametrizada)
-    conn.execute("""
+    cursor.execute("""
         UPDATE lista_presentes
-        SET convidado = ?, status = 1
-        WHERE id = ?
+        SET convidado = %s, status = 1
+        WHERE id = %s
     """, (nome, id_presente))
 
     conn.commit()
+
+    cursor.close()
     conn.close()
 
     return jsonify({"ok": True})
 
+# ADMIN
 @app.route("/admin")
 def admin():
     conn = get_db()
-    cursor = conn.execute("""
-        SELECT item, convidado 
+    cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+    cursor.execute("""
+        SELECT item, convidado
         FROM lista_presentes
         WHERE convidado IS NOT NULL
+        ORDER BY id;
     """)
+
     dados = cursor.fetchall()
+
+    cursor.close()
     conn.close()
 
-    return jsonify([dict(row) for row in dados])
+    return jsonify(dados)
 
 if __name__ == "__main__":
     app.run()
