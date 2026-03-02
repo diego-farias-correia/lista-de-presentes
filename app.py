@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, jsonify
-import psycopg2
-import psycopg2.extras
+#import psycopg2
+#import psycopg2.extras
+import psycopg
+from psycopg.rows import dict_row
 import os
 
 app = Flask(__name__)
@@ -8,8 +10,7 @@ app = Flask(__name__)
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 def get_db():
-    url = DATABASE_URL.replace("postgres://", "postgresql://")
-    conn = psycopg2.connect(url, sslmode="require")
+    conn = psycopg.connect(DATABASE_URL, sslmode="require")
     return conn
 
 @app.route("/")
@@ -20,7 +21,7 @@ def index():
 @app.route("/api/presentes")
 def listar_presentes():
     conn = get_db()
-    cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cursor = conn.cursor(row_factory=dict_row)
 
     cursor.execute("SELECT * FROM lista_presentes ORDER BY id;")
     presentes = cursor.fetchall()
